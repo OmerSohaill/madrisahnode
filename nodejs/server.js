@@ -27,6 +27,7 @@ db.once('open', () => {
 });
 
 
+
 app.get('/newvoteradd', function(req, res) {
   res.render('uploadimg')
 
