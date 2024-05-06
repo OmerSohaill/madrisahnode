@@ -26,12 +26,10 @@ db.once('open', () => {
   console.log('Connected to MongoDB');
 });
 
+//ALL ROUTES 
+const register=require('./routes/register')
 
-
-app.get('/newvoteradd', function(req, res) {
-  res.render('uploadimg')
-
-})
+app.use('/register',register);
 
 // Start the server
 app.listen(port, () => {
