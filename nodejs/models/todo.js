@@ -6,17 +6,31 @@ const Mregistration=new mongoose.Schema({
         required:true
     },
     email:{
-        type:String,
+         type:String,
         required:true
     },
     contactnum:{
         type:Number,
         required:true
     },
+    password:{
+        type:String,
+        required:true
+    },
     coursecode:{
         type:Number,
         required:true
+    },
+    online:{
+        type:String
+     
+    
+    },
+    recorded:{
+        type:String
+       
     }
+
 
 })
 

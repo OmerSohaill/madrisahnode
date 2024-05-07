@@ -7,6 +7,7 @@ const cors = require('cors');
 const app = express();
 const port = 3001;
 // Middleware
+const {setuser,getuser}=require('./controllers/auth')
 app.use(cors());
 
 app.use(cookieParser());
@@ -26,10 +27,25 @@ db.once('open', () => {
   console.log('Connected to MongoDB');
 });
 
+//ALL MIDDLEWARES
+app.use('/login',async function(req,res,next){
+  const token=req.cookies.token;
+  if(!token){
+    res.render('login')
+  }
+  const user=await getuser(token);
+  if(!user){
+    res.render('login')
+  }
+
+  
+})
 //ALL ROUTES 
 const register=require('./routes/register')
+const login=require('./routes/checklogin')
 
 app.use('/register',register);
+app.use('/checklogin',login)
 
 // Start the server
 app.listen(port, () => {
