@@ -1,71 +1,77 @@
-const mongoose=require('mongoose')
+const mongoose = require('mongoose');
 
-//User Registration Schemas
-
-const register=new mongoose.Schema({
-    fullname:{
-        type:String,
-        required:true
+// User Registration Schema
+const registerSchema = new mongoose.Schema({
+    fullname: {
+        type: String,
+        required: true
     },
-    cnic:{
+    cnic: {
+        type: Number,
+        required: true,
+        unique: true
+    },
+    education: {
+        type: String
+    },
+    skills: {
+        type: String
+    },
+    DateOfBirth: {
+        type: Date // or type: Number if storing timestamps
+    },
+    country: {
+        type: String,
+        required: true
+    },
+    district: {
+        type: String,
+        required: true
+    },
+    stateprovince: {
+        type: String, // corrected typo
+        required: true
+    },
+    phonenum: {
+        type: Number,
+        required: true,
+        unique: true
+    },
+    whatsappnum: {
+        type: Number,
+        required: true,
+        unique: true
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    password: {
+        type: String,
+        required: true
+    },
+    currentcity: {
+        type: String,
+        required: true
+    },
+    currentaddress: {
+        type: String, // added type definition
+        required: true
+    },
+    feespaid:{
         type:Number,
-        required:true,
-        unique:true
+        default:0
+    },
+    role: {
+        type: String,
+        enum: ['student', 'admin', 'teacher'],
+        default: 'student'
+    }
+});
 
-    },
-    education:{
-        type:String,
-        
-    },
-    skills:{
-        type:String
-    },
-    DateOfBirth:{
-        type:Number,
-        
-    },
-    country:{
-        type:String,
-        required:true
-    },
-    disctrict:{
-        type:String,
-        required:true
-    },
-    stateprovince:{
-        types:String,
-        required:true
-    },
-    phonenum:{
-        type:Number,
-        require:true,
-        unique:true
-    },
-    whatsappnum:{
-        type:Number,
-        required:true,
-        unique:true
-    }, email:{
-        type:String,
-        required:true,
-        unique:true
-    },
-    password:{
-        type:String,
-        required:true,
-        unique:true
-    },
-    currentcity:{
-        type:String,
-        required:true
-    },
-    currentaddress:{
-        required:true
-    }   
-})
+const Registration = mongoose.model('Registration', registerSchema);
 
-const registration=new mongoose.model('registration',register)
-
-module.exports={
-    registration:registration
-}
+module.exports = {
+    Registration: Registration
+};

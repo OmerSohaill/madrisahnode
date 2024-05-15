@@ -13,7 +13,6 @@ app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
 // View engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -26,11 +25,14 @@ db.once('open', () => {
   console.log('Connected to MongoDB');
 });
 
+
 //ALL MIDDLEWARES
 
 //ALL ROUTES 
-const registration=require('./routes/registration')
+const registration=require('./routes/registration');
+const login=require('./routes/login')
 app.use('/registraion',registration)
+app.use('/login',login);
 
 // Start the server
 app.listen(port, () => {
