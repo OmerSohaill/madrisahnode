@@ -63,6 +63,10 @@ const registerSchema = new mongoose.Schema({
         type:Number,
         default:0
     },
+    coursecode:{
+        type:Number,
+        required:true
+    },
     role: {
         type: String,
         enum: ['student', 'admin', 'teacher'],
