@@ -17,7 +17,6 @@ app.use(express.urlencoded({ extended: true }));
 // View engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-
 //MongoDB connection
 const mongoURI = 'mongodb+srv://umer:umer@cluster0.avg1bjf.mongodb.net/railway?retryWrites=true&w=majority';
 mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -28,24 +27,10 @@ db.once('open', () => {
 });
 
 //ALL MIDDLEWARES
-app.use('/login',async function(req,res,next){
-  const token=req.cookies.token;
-  if(!token){
-    res.render('login')
-  }
-  const user=await getuser(token);
-  if(!user){
-    res.render('login')
-  }
 
-  
-})
 //ALL ROUTES 
-const register=require('./routes/register')
-const login=require('./routes/checklogin')
-
-app.use('/register',register);
-app.use('/checklogin',login)
+const registration=require('./routes/registration')
+app.use('/registraion',registration)
 
 // Start the server
 app.listen(port, () => {

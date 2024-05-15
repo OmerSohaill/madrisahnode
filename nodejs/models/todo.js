@@ -1,40 +1,71 @@
 const mongoose=require('mongoose')
 
-const Mregistration=new mongoose.Schema({
-    name:{
+//User Registration Schemas
+
+const register=new mongoose.Schema({
+    fullname:{
         type:String,
         required:true
     },
-    email:{
-         type:String,
+    cnic:{
+        type:Number,
+        required:true,
+        unique:true
+
+    },
+    education:{
+        type:String,
+        
+    },
+    skills:{
+        type:String
+    },
+    DateOfBirth:{
+        type:Number,
+        
+    },
+    country:{
+        type:String,
         required:true
     },
-    contactnum:{
-        type:Number,
+    disctrict:{
+        type:String,
         required:true
+    },
+    stateprovince:{
+        types:String,
+        required:true
+    },
+    phonenum:{
+        type:Number,
+        require:true,
+        unique:true
+    },
+    whatsappnum:{
+        type:Number,
+        required:true,
+        unique:true
+    }, email:{
+        type:String,
+        required:true,
+        unique:true
     },
     password:{
         type:String,
+        required:true,
+        unique:true
+    },
+    currentcity:{
+        type:String,
         required:true
     },
-    coursecode:{
-        type:Number,
+    currentaddress:{
         required:true
-    },
-    online:{
-        type:String
-     
-    
-    },
-    recorded:{
-        type:String
-       
-    }
-
-
+    }   
 })
 
-const register=new mongoose.model('register',Mregistration)
+const registration=new mongoose.model('registration',register)
+
 module.exports={
-    register:register
+    registration:registration
 }
