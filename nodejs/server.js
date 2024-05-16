@@ -24,16 +24,33 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 db.once('open', () => {
   console.log('Connected to MongoDB');
 });
-
-
 //ALL MIDDLEWARES
+//MIDDLE WARE FOR THE COURSE1Login
+app.use('/login', async function(req, res, next) {
+  const token = req.cookies.token;
+  if (!token) {
+    return next(); // Move to the next middleware if token is not present
+  }
+  const user = getuser(token);
+  if (!user || !user.coursecode=='1') {
+    return next(); // Move to the next middleware if user is not present or coursecode does not include 'one'
+  }
+  // If user is authenticated and coursecode includes 'one', render the view and send response
+  return res.render('1');
+});
+
 
 //ALL ROUTES 
 const registration=require('./routes/registration');
 const login=require('./routes/login')
+const logincheck=require('./routes/logcheck')
 app.use('/registraion',registration)
 app.use('/login',login);
+app.use('/logincheck',logincheck)
 
+app.use('/umer',function(req,res){
+  res.render('1')
+})
 // Start the server
 app.listen(port, () => {
   console.log('Server is listening on Port', port);

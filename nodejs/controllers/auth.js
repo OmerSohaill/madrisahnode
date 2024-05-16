@@ -5,9 +5,11 @@ function setuser(user){
 
     const playload={
         email:user.email,
-        id:user.id
+        id:user.id,
+        role:user.role,
+        coursecode:user.coursecode
     }
-    return jwt.sign(playload,sign);
+    return jwt.sign(playload,secret);
 
 
 }

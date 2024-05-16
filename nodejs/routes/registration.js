@@ -5,7 +5,7 @@ const routes = express.Router();
 
 routes.post('/', async function(req, res) {
     // Destructuring req.body directly into the data object
-    const { fullname, cnic, education, skills, DateOfBirth, country, district, stateprovince, phonenum, whatsappnum, email, password,confirmpassword, currentcity, currentaddress } = req.body;
+    const { fullname, cnic, education,coursecode, skills, DateOfBirth, country, district, stateprovince, phonenum, whatsappnum, email, password,confirmpassword, currentcity, currentaddress } = req.body;
     if(password !=confirmpassword){
         res.send("Your password and confirm password is not equal ")
     }
@@ -24,7 +24,8 @@ routes.post('/', async function(req, res) {
         email,
         password,
         currentcity,
-        currentaddress
+        currentaddress,
+        coursecode
     });
 
     try {

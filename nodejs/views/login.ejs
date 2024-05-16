@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+    <title>Document</title>
+</head>
+<body>
+    <div class="Login grid md:grid-cols-2">
+
+        <div class="loginbox loginimg">
+            <img class='logim' src="https://dashboard.razakar.org/Content/RazakarLogo.png" />
+            <p class='loginpone'>Al-Burhan is serving in numerous avenues of religious education, Islah and social services. With the purpose of providing access to religious education for everyone around the globe, we have recently started “e-Al-Burhan”, an online education system, teaching Quran, Hadees, Seerat and Fiqh to people from 80 countries.</p>
+            <p class='loginptwo'>Copyrights © 2024 Alburhan. All rights reserved.
+                Privacy   Contact</p>
+
+
+        </div>
+
+
+
+        <form action='http://localhost:3001/login' method="POST">
+        <div class="loginbox loginsi">
+           
+                <label class='logisign'>Sign  In</label>
+
+
+                <input class='logiin' name="fullname" placeholder='User Name' />
+
+
+                <input class='logiin' type="password" name="password" placeholder='Password' />
+
+                <a class='loga' href="">Forgot Password?</a><button class='logbtn' type="submit">Signin</button>
+
+
+        </div>
+            </form>
+
+
+</div >
+<style>
+    .loginimg{
+    background-color: #5E2DAD;
+    color:white;
+    padding:140px;
+    height: 100vh;
+    
+}
+.logim{
+
+    height: 50%;
+    box-sizing: border-box;
+}
+.loginsi{
+    margin-top: 100px;
+}
+.loginpone{
+    margin-top: 50px;
+}
+.loginptwo{
+    margin-top: 30px;
+}
+.loginsi{
+ 
+    display: flex;
+    height: 70vh;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding:100px;
+
+}
+.logisign{
+    font-size: 32px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: bold;
+
+}
+.logiin{
+    display: inline-block;
+    margin-top: 32px;
+    width: 80%;
+    height: 32px;
+    border: solid 1px #ccc;
+    border: solid 1px #ccc; /* Border style */
+    width: 50%; /* Set width */
+    height: 32px; /* Set height */
+    padding: 6px; /* Padding inside the input */
+    font-size: 16px; /* Font size */
+    border-radius: 5px; /* Rounded corners */
+    outline: none; /* Remove default focus outline */
+    transition: border-color 0.3s ease; /* Smooth border color transition */
+    
+    border:solid;
+    border-width: 0.01cqi ;
+    width:100%;
+    height:32px;
+
+   
+    padding:6px;
+  
+  
+};
+
+.logiin:hover,
+.logiin:focus {
+    border-color: #999; /* Change border color on hover and focus */
+}
+
+/* Placeholder text style */
+.logiin::placeholder {
+    color: #999; /* Placeholder text color */
+}
+.logbtn{
+    width:140px;
+    height: 53px;
+     border:solid;
+     margin-top: 65px;
+     margin-left: 220px;
+    background-color: #5463DC;
+    color:white;
+}
+.logbtn:hover{
+    background-color: #5866cf;
+}
+.loga:hover{
+    color:#5463DC;
+    
+}
+@media screen and (max-width:1200px) and (min-width:767px) {
+
+    .loginimg{
+        height:90vh;
+        padding: 30px;
+        
+    }
+    
+}
+@media screen and (max-width:767px) {
+    .loginimg{
+        padding:0px;
+        width:100%;
+    }
+    
+    we
+
+    .logim{
+        box-sizing: border-box;
+        height: 30%;
+    }
+    .logbtn{
+        margin-left: 0px;
+    }
+}
+</style>
+    
+</body>
+</html>
