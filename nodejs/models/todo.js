@@ -73,9 +73,25 @@ const registerSchema = new mongoose.Schema({
         default: 'student'
     }
 });
-
+const Madmin=new mongoose.Schema({
+     username:{
+        type:String,
+        require:true
+    
+    },
+    password:{
+        type:String,
+        required:true
+    },
+    role:{
+        type:String,
+        enum:['admin','teachers'],
+        required:true
+    }
+})
 const Registration = mongoose.model('Registration', registerSchema);
-
+const Madrisahadmin=mongoose.model('Madrisahadmin',Madmin);
 module.exports = {
-    Registration: Registration
+    Registration: Registration,
+    Madrisahadmin:Madrisahadmin
 };

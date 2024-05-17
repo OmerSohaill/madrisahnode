@@ -1,15 +1,13 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
-
 const path = require('path');
 const cors = require('cors');
 const app = express();
 const port = 3001;
 // Middleware
-const {setuser,getuser}=require('./controllers/auth')
+const { setuser, getuser } = require('./controllers/auth')
 app.use(cors());
-
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -25,32 +23,29 @@ db.once('open', () => {
   console.log('Connected to MongoDB');
 });
 //ALL MIDDLEWARES
-//MIDDLE WARE FOR THE COURSE1Login
-app.use('/login', async function(req, res, next) {
+//MIDDLE WARE FOR THE COURSE1Logi
+app.use('/login', function (req, res, next) {
   const token = req.cookies.token;
   if (!token) {
-    return next(); // Move to the next middleware if token is not present
+    return res.render('login');
   }
+
   const user = getuser(token);
-  if (!user || !user.coursecode=='1') {
-    return next(); // Move to the next middleware if user is not present or coursecode does not include 'one'
+  if (!user) {
+    return res.render('login');
   }
-  // If user is authenticated and coursecode includes 'one', render the view and send response
-  return res.render('1');
+   req.user=user;
+  next();
 });
 
-
 //ALL ROUTES 
-const registration=require('./routes/registration');
+const registration = require('./routes/registration');
 const login=require('./routes/login')
-const logincheck=require('./routes/logcheck')
-app.use('/registraion',registration)
-app.use('/login',login);
-app.use('/logincheck',logincheck)
+const loginss=require('./routes/loginss')
+app.use('/registraion', registration)
+app.use('/login',login)
+app.use('/loginss',loginss)
 
-app.use('/umer',function(req,res){
-  res.render('1')
-})
 // Start the server
 app.listen(port, () => {
   console.log('Server is listening on Port', port);

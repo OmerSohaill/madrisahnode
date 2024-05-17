@@ -1,29 +1,23 @@
-const express = require('express');
-const { Registration } = require('../models/todo');
-const routes = express.Router();
-const { setuser } = require('../controllers/auth');
+const express=require('express')
+const routes=express.Router();
+routes.get('/',function(req,res){
+   try{
+    const user=req.user;
+   
+    switch(user.coursecode.toString()) {
+        case '1':
+            return res.render('1');
+        case '2':
+            return res.render('2');
+        case '3':
+            return res.render('3');
+        default:
+            return res.status(400).send("Invalid course code");
+    }
 
-routes.post('/', async function(req, res) {
-   const { fullname, password } = req.body;
-   console.log(fullname, password); // Log the received data
-
-   try {
-      const user = await Registration.findOne({ fullname, password });
-      if (user && user.coursecode =="1") {
-         // Log the found user
-         const token = setuser(user);
-         // Set cookie
-         res.cookie('token', token);
-         // Render response
-         res.render('yourTemplateName', { user }); // Change 'yourTemplateName' to your actual template name
-
-      } else {
-         res.status(401).send("Student with the provided username and password not found");
-      }
-   } catch (error) {
-      console.error(error); // Log the error to the console
-      res.status(500).send(error);
+   }catch(error){
+    res.send(error)
    }
-});
 
-module.exports = routes;
+})
+module.exports=routes;
