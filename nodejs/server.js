@@ -29,7 +29,6 @@ app.use('/login', function (req, res, next) {
   if (!token) {
     return res.render('login');
   }
-
   const user = getuser(token);
   if (!user) {
     return res.render('login');

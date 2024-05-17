@@ -3,7 +3,6 @@ const routes=express.Router();
 routes.get('/',function(req,res){
    try{
     const user=req.user;
-   
     switch(user.coursecode.toString()) {
         case '1':
             return res.render('1');
