@@ -3,6 +3,10 @@ const routes=express.Router();
 routes.get('/',function(req,res){
    try{
     const user=req.user;
+  
+    if(user.role=='admin'){
+        return res.render('admin')
+    }
     switch(user.coursecode.toString()) {
         case '1':
             return res.render('1');

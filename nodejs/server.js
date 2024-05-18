@@ -11,6 +11,7 @@ app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
 // View engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -36,14 +37,17 @@ app.use('/login', function (req, res, next) {
    req.user=user;
   next();
 });
-
 //ALL ROUTES 
 const registration = require('./routes/registration');
 const login=require('./routes/login')
 const loginss=require('./routes/loginss')
+const adminsstudentinfo=require('./routes/adminsstudentinfo')
+const updatestudentinfo=require('./routes/updatestudentinfo')
 app.use('/registraion', registration)
 app.use('/login',login)
 app.use('/loginss',loginss)
+app.use('/adminsstudentinfo',adminsstudentinfo)
+app.use('/updatestudentinfo',updatestudentinfo)
 
 // Start the server
 app.listen(port, () => {

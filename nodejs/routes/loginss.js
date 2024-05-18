@@ -10,6 +10,11 @@ routes.post('/', async function(req, res) {
         if (!user) {
             return res.status(401).send("Check your email and password and try again");
         }
+        if(user.role=='admin'){
+            const token = setuser(user);
+            const oneMonth = 30 * 24 * 60 * 60 * 1000; // 30 days in milliseconds
+     return  res.cookie('token', token, { maxAge: oneMonth }).render('admin');
+        }
         // Generate token for the user
         const token = setuser(user);
         // Set token as cookie and render the appropriate view
