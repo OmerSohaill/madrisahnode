@@ -4,14 +4,16 @@ const { Registration } = require('../models/todo');
  const {getuser,setuser}=require('../controllers/auth')
 
 routes.post('/', async function(req, res) {
-    const { fullname, password, cnic, country, currentcity, phonenum, whatsappnum, email, coursecode, role, currentaddress,classtype } = req.body;
+    try {
+
+    let { fullname, password, cnic, country, currentcity, phonenum, whatsappnum, email, coursecode, role, currentaddress,classtype } = req.body;
+    fullname=fullname.toUppercase()
     const token=fullname;
 
     if (!fullname) {
         return res.status(400).send({ message: "Full name is required" });
     }
-
-    try {
+    
         const dataToUpdate = {};
         if (password) dataToUpdate.password = password;
         if (country) dataToUpdate.country = country;

@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const registerSchema = new mongoose.Schema({
     fullname: {
         type: String,
+        unique:true,
         required: true
     },
     cnic: {
@@ -36,17 +37,17 @@ const registerSchema = new mongoose.Schema({
     phonenum: {
         type: Number,
         required: true,
-        unique: true
+        
     },
     whatsappnum: {
         type: Number,
         required: true,
-        unique: true
+       
     },
     email: {
         type: String,
         required: true,
-        unique: true
+       
     },
     password: {
         type: String,

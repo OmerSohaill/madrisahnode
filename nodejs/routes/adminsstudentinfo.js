@@ -4,14 +4,15 @@ const { Registration } = require('../models/todo');
 
 // POST route to find a student by fullname
 routes.post('/', async function(req, res) {
-    const { fullname } = req.body;
-
+    try {
+    let { fullname } = req.body;
+     fullname= fullname.toUpperCase()
     // Validate the input
     if (!fullname) {
         return res.status(400).send({ error: "Fullname is required" });
     }
 
-    try {
+    
         const result = await Registration.findOne({ fullname });
         if (!result) {
             return res.status(404).send({ message: "No student found with this fullname" });

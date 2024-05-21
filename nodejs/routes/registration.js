@@ -4,12 +4,15 @@ const { Registration } = require('../models/todo'); // Corrected model import
 const routes = express.Router();
 
 routes.post('/', async function(req, res) {
+    try{
     // Destructuring req.body directly into the data object
-    const { fullname, online,recorded,cnic, education,coursecode, skills, DateOfBirth, country, district, stateprovince, phonenum, whatsappnum, email, password,confirmpassword, currentcity, currentaddress } = req.body;
+    let { fullname, online,recorded,cnic, education,coursecode, skills, DateOfBirth, country, district, stateprovince, phonenum, whatsappnum, email, password,confirmpassword, currentcity, currentaddress } = req.body;
     if(password !=confirmpassword){
         res.send("Your password and confirm password is not equal ")
     }
-    try{
+   fullname=fullname.toUpperCase()
+   console.log(fullname)
+   
 
     
 

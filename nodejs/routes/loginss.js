@@ -3,8 +3,10 @@ const routes = express.Router();
 const { setuser } = require('../controllers/auth');
 const { Registration } = require('../models/todo');
 routes.post('/', async function (req, res) {
-    const { fullname, password } = req.body;
     try {
+ let { fullname, password } = req.body;
+  fullname= fullname.toUpperCase();
+   
         // Find user by fullname and password
         const user = await Registration.findOne({ fullname, password });
         if (!user) {
