@@ -11,6 +11,7 @@
 </head>
 
 <body>
+    <%- include('adnav') %>
     <section class="text-gray-600 body-font relative">
 
         <div class="container px-5 py-24 mx-auto">
@@ -56,7 +57,7 @@
             </div>
 
             <div class="lg:w-1/2 md:w-2/3 mx-auto">
-                <form action="http://localhost:3001/" method="POST">
+                <form action="http://localhost:3001/updatefeesstatus" method="POST">
 
 
                     <div class="flex flex-wrap -m-2">
@@ -72,7 +73,7 @@
                             <div class="p-2 w-1/2">
                                 <div class="relative">
                                     <label for="name" class="leading-7 text-sm text-gray-600">Fees</label>
-                                    <input type="text" id="name" name="fullname"
+                                    <input type="number" id="" name="fees"
                                         class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                 </div>
                             </div>
@@ -177,6 +178,13 @@
                             <div class="relative">
                                 <label for="name" class="leading-7 text-sm text-gray-600">COURSE CODE</label>
                                 <input type="number" id="" name="coursecode"
+                                    class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                            </div>
+                        </div>
+                        <div class="p-2 w-1/2">
+                            <div class="relative">
+                                <label for="name" class="leading-7 text-sm text-gray-600">CLASS TYPE</label>
+                                <input type="text" id="" name="classtype"
                                     class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                             </div>
                         </div>

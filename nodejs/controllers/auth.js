@@ -7,7 +7,8 @@ function setuser(user){
         email:user.email,
         id:user.id,
         role:user.role,
-        coursecode:user.coursecode
+        coursecode:user.coursecode,
+        classtype:user.classtype
     }
     return jwt.sign(playload,secret);
 

@@ -1,9 +1,11 @@
 const express = require('express');
 const routes = express.Router();
 const { Registration } = require('../models/todo');
+ const {getuser,setuser}=require('../controllers/auth')
 
 routes.post('/', async function(req, res) {
-    const { fullname, password, cnic, country, currentcity, phonenum, whatsappnum, email, coursecode, role, currentaddress } = req.body;
+    const { fullname, password, cnic, country, currentcity, phonenum, whatsappnum, email, coursecode, role, currentaddress,classtype } = req.body;
+    const token=fullname;
 
     if (!fullname) {
         return res.status(400).send({ message: "Full name is required" });
@@ -21,13 +23,16 @@ routes.post('/', async function(req, res) {
         if (email) dataToUpdate.email = email;
         if (coursecode) dataToUpdate.coursecode = coursecode;
         if (role) dataToUpdate.role = role;
+        if(classtype) dataToUpdate.classtype=classtype
 
         // Find the user by fullname and update their information
         const user = await Registration.findOneAndUpdate(
             { fullname: fullname }, // Filter by fullname
             { $set: dataToUpdate }, // Update specific fields with provided data
-            { new: true } // Return the updated document
+            { new: true } ,// Return the updated document
+          
         );
+        setuser(user)
 
         // Check if user exists
         if (!user) {

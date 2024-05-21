@@ -1,3 +1,4 @@
+const { Timestamp } = require('mongodb');
 const mongoose = require('mongoose');
 
 // User Registration Schema
@@ -67,6 +68,10 @@ const registerSchema = new mongoose.Schema({
         type:Number,
         required:true
     },
+    classtype:{
+        type:String,
+        required:true
+    },
     role: {
         type: String,
         enum: ['student', 'admin', 'teacher'],
@@ -89,9 +94,30 @@ const Madmin=new mongoose.Schema({
         required:true
     }
 })
+
+const msg=new mongoose.Schema({
+
+     email: {
+        type: String,
+     
+    },
+    phone:{
+        type:Number,
+    },
+    message: {
+        type: String,
+        required: true,
+    }
+}, {
+    timestamps: true // This will automatically add createdAt and updatedAt fields
+});
+
 const Registration = mongoose.model('Registration', registerSchema);
 const Madrisahadmin=mongoose.model('Madrisahadmin',Madmin);
+const mes=mongoose.model('mes',msg)
+
 module.exports = {
     Registration: Registration,
-    Madrisahadmin:Madrisahadmin
+    Madrisahadmin:Madrisahadmin,
+    mes:mes
 };

@@ -43,11 +43,15 @@ const login=require('./routes/login')
 const loginss=require('./routes/loginss')
 const adminsstudentinfo=require('./routes/adminsstudentinfo')
 const updatestudentinfo=require('./routes/updatestudentinfo')
+const updatefeesstatus=require('./routes/adminfeesupdate')
+const contactus=require('./routes/contactus')
 app.use('/registraion', registration)
 app.use('/login',login)
 app.use('/loginss',loginss)
 app.use('/adminsstudentinfo',adminsstudentinfo)
 app.use('/updatestudentinfo',updatestudentinfo)
+app.use('/updatefeesstatus',updatefeesstatus)
+app.use('/contactus',contactus)
 
 // Start the server
 app.listen(port, () => {

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+    <title>welcome to admins</title>
+</head>
+<body>
+   
+  <nav class="bg-gray-800 p-4">
+    <div class="container mx-auto flex justify-between items-center">
+        <div class="text-white text-lg font-semibold">
+            Notifications
+        </div>
+        <div class="relative">
+            <button class="text-gray-400 hover:text-white focus:outline-none" aria-label="Notifications">
+                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11c0-3.38-2.03-6.307-5-7.742V3a2 2 0 00-4 0v.258C7.03 4.693 5 7.62 5 11v3.159c0 .538-.214 1.055-.595 1.438L3 17h5m7 0a3 3 0 01-6 0m6 0H9"></path>
+                </svg>
+                <span class="absolute top-0 right-0 block h-2 w-2 bg-red-600 rounded-full ring-2 ring-white"></span>
+            </button>
+            <div class="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-lg py-2 z-50 hidden group-hover:block">
+              <a href="http://localhost:3001/contactus" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Messages</a>
+              <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">New Addmissions</a>
+              <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Fees Paid</a>
+          </div>
+      </div>
+  </div>
+</nav>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+      const notificationButton = document.querySelector('button[aria-label="Notifications"]');
+      const notificationDropdown = notificationButton.nextElementSibling;
+      
+      notificationButton.addEventListener('click', () => {
+          notificationDropdown.classList.toggle('hidden');
+      });
+
+      window.addEventListener('click', (e) => {
+          if (!notificationButton.contains(e.target) && !notificationDropdown.contains(e.target)) {
+              notificationDropdown.classList.add('hidden');
+          }
+      });
+  });
+</script>
+</body>
+</html>

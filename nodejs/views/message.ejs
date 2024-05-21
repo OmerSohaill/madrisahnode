@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show Messages</title>
+</head>
+<body>
+    <h1>All Messages</h1>
+    <ul>
+        <% result.forEach(function(message, index) { %>
+            <li class="li" id="<%= index === result.length - 1 ? 'last-message' : '' %>">
+                <strong>Message <%= index + 1 %>:</strong><br>
+                <label class="email">Email: </label><h4><%= message.email  %></h4><br>
+                <label class="mes">Phone Num: </label><h4><%= message.phone  %></h4><br>
+                <label class="mes">Message: </label><h4><%= message.message  %></h4><br>
+                <label>Timestamp: </label><%= message.createdAt  %><br>
+                <hr></hr>
+            </li>
+        <% }); %>
+    </ul>
+    <style>
+        .email{
+            font-size: 27px;
+        }
+        .mes{
+            font-size: 27px;
+        }
+        .li{
+            margin-top: 34px;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            var lastMessage = document.getElementById('last-message');
+            if (lastMessage) {
+                lastMessage.scrollIntoView();
+            }
+        };
+    </script>
+</body>
+</html>
