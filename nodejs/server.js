@@ -45,6 +45,7 @@ const adminsstudentinfo=require('./routes/adminsstudentinfo')
 const updatestudentinfo=require('./routes/updatestudentinfo')
 const updatefeesstatus=require('./routes/adminfeesupdate')
 const contactus=require('./routes/contactus')
+const clearCookie=require('./routes/logout')
 app.use('/registraion', registration)
 app.use('/login',login)
 app.use('/loginss',loginss)
@@ -52,7 +53,7 @@ app.use('/adminsstudentinfo',adminsstudentinfo)
 app.use('/updatestudentinfo',updatestudentinfo)
 app.use('/updatefeesstatus',updatefeesstatus)
 app.use('/contactus',contactus)
-
+app.use('/logout',clearCookie)
 // Start the server
 app.listen(port, () => {
   console.log('Server is listening on Port', port);

@@ -1,14 +1,14 @@
 const express = require('express');
 const routes = express.Router();
 const { Registration } = require('../models/todo');
- const {getuser,setuser}=require('../controllers/auth')
+ const {getuser,setuser,deleteuser}=require('../controllers/auth')
 
 routes.post('/', async function(req, res) {
     try {
 
     let { fullname, password, cnic, country, currentcity, phonenum, whatsappnum, email, coursecode, role, currentaddress,classtype } = req.body;
-    fullname=fullname.toUppercase()
-    const token=fullname;
+    fullname=fullname.toUpperCase()
+    
 
     if (!fullname) {
         return res.status(400).send({ message: "Full name is required" });
@@ -32,8 +32,10 @@ routes.post('/', async function(req, res) {
             { fullname: fullname }, // Filter by fullname
             { $set: dataToUpdate }, // Update specific fields with provided data
             { new: true } ,// Return the updated document
+            
           
         );
+      
         setuser(user)
 
         // Check if user exists

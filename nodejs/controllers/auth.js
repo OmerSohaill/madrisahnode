@@ -21,8 +21,11 @@ function getuser(token){
 
 
 }
- 
+function deleteuser(token){
+    return jwt.deleteuser(token)
+} 
 module.exports={
     setuser:setuser,
-    getuser:getuser
+    getuser:getuser,
+    deleteuser:deleteuser
 }

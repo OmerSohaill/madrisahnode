@@ -38,6 +38,22 @@ routes.post('/', async function (req, res) {
 
 
         }
+        
+        if (user.coursecode && user.classtype == 'online') {
+            const cou = user.coursecode.toString();
+            switch (cou) {
+                case '1':
+                    return res.render('online1');
+                case '2':
+                    return res.render('online2');
+                case '3':
+                    return res.render('online3');
+                default:
+                    return res.status(400).send("Invalid course code");
+            }
+
+
+        }
         else{
             res.send("Class type not Match")
         }
