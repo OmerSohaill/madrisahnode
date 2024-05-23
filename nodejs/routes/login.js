@@ -22,7 +22,7 @@ routes.get('/',async function (req, res) {
                 case '3':
                     return res.render('3');
                 default:
-                    return res.status(400).send("Invalid course code");
+                    return res.status(400).send("Invalid course code",error.message);
             }
            
 
@@ -55,7 +55,7 @@ routes.get('/',async function (req, res) {
 
 
     } catch (error) {
-        res.send(error)
+        res.status(500).send({message:error.message})
     }
 
 })

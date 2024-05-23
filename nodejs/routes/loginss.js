@@ -10,8 +10,9 @@ routes.post('/', async function (req, res) {
         // Find user by fullname and password
         const user = await Registration.findOne({ fullname, password });
         if (!user) {
-            return res.status(401).send("Check your email and password and try again");
+            return res.status(404).send("Check your email and password and try again",res.message);
         }
+      
         if (user.role == 'admin') {
             const token = setuser(user);
             const oneMonth = 30 * 24 * 60 * 60 * 1000; // 30 days in milliseconds
@@ -55,13 +56,12 @@ routes.post('/', async function (req, res) {
 
         }
         else{
-            res.send("Class type not Match")
+            res.status(400).send({message:"Class type not Match"})
         }
-
 
     } catch (error) {
         console.error(error); // Log the error for debugging
-        return res.status(500).send("Internal Server Error");
+        return res.status(500).send("Internal Server Error",error.message);
     }
 });
 

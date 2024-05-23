@@ -21,11 +21,11 @@ routes.post('/',async function(req,res){
     const result=new mes({email,phone,message})
     const results=await result.save()
     if(results){
-       return res.status(200).send(`Your message submit succesfully our Team will  response you as soon as possible`)
+       return res.status(200).json(`Your message submit succesfully our Team will  response you as soon as possible`)
     }
 
     else{
-        return res.send({message:"ERROR: MESSAGE NOT SUBMIT TRY AGAIN LETTER"})
+        return res.json({message:"ERROR: MESSAGE NOT SUBMIT TRY AGAIN LETTER"})
     }
 
 

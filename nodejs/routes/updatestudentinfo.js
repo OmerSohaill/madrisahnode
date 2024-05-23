@@ -44,11 +44,11 @@ routes.post('/', async function(req, res) {
         }
 
         // Send the updated user as response
-        res.status(200).send(user);
+        res.status(200).send(`Student UPDATE SUCCESSFULLY `);
     } catch (error) {
         // Handle errors
-        console.error(error);
-        res.status(500).send(error);
+      
+        res.status(500).send(error.message);
     }
 });
 
