@@ -3,33 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <title>Welcome to Admins</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
-        @keyframes slideDown {
-            0% { transform: translateY(-10px); opacity: 0; }
-            100% { transform: translateY(0); opacity: 1; }
+        @keyframes bellRing {
+            0% { transform: rotate(0deg); }
+            50% { transform: rotate(-10deg); }
+            100% { transform: rotate(10deg); }
         }
-        @keyframes slideUp {
-            0% { transform: translateY(0); opacity: 1; }
-            100% { transform: translateY(-10px); opacity: 0; }
-        }
-        .slide-down {
-            animation: slideDown 0.3s ease-out forwards;
-        }
-        .slide-up {
-            animation: slideUp 0.3s ease-in forwards;
-        }
-        .notification-popup {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            background: #333;
-            color: white;
-            padding: 10px;
-            border-radius: 5px;
-            z-index: 1000;
-            display: none;
+        .ringing {
+            animation: bellRing 0.5s infinite alternate;
         }
     </style>
 </head>
@@ -40,15 +23,15 @@
             Notifications
         </div>
         <div class="relative">
-            <button id="notification-button" class="text-gray-400 hover:text-white focus:outline-none" aria-label="Notifications">
-                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <button id="notification-button" class="text-gray-400 hover:text-white focus:outline-none relative" aria-label="Notifications">
+                <svg id="bell-icon" class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11c0-3.38-2.03-6.307-5-7.742V3a2 2 0 00-4 0v.258C7.03 4.693 5 7.62 5 11v3.159c0 .538-.214 1.055-.595 1.438L3 17h5m7 0a3 3 0 01-6 0m6 0H9"></path>
                 </svg>
                 <span id="notification-badge" class="absolute top-0 right-0 block h-2 w-2 bg-red-600 rounded-full ring-2 ring-white hidden"></span>
-                <span id="message-count-badge" class="absolute top-0 left-4 text-white bg-red-600 rounded-full px-2 py-0.5 text-xs hidden"></span>
+                <span id="bell-message" class="bell-message"></span>
             </button>
             <div id="notification-dropdown" class="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-lg py-2 z-50 hidden">
-                <a href="http://localhost:3001/contactus" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Messages (<span id="new-messages-count">0</span>)</a>
+                <a href="http://localhost:3001/contactus" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Messages <span id="new-messages-count" class="ml-1"></span></a>
                 <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">New Admissions</a>
                 <a href="http://localhost:3001/logout" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">LogOut</a>
             </div>
@@ -56,93 +39,62 @@
     </div>
   </nav>
 
-  <div id="notification-popup" class="notification-popup"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.min.js"></script>
 
-  <script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const socket = io('http://localhost:3001');
       const notificationBadge = document.getElementById('notification-badge');
-      const notificationDropdown = document.getElementById('notification-dropdown');
+      const bellIcon = document.getElementById('bell-icon');
+      const bellMessage = document.getElementById('bell-message');
       const newMessagesCount = document.getElementById('new-messages-count');
-      const messageCountBadge = document.getElementById('message-count-badge');
-      const notificationPopup = document.getElementById('notification-popup');
       let messageCount = 0;
+      let isDropdownOpen = false;
 
-      // Check for notification permission
-      if (Notification.permission !== 'granted') {
-        Notification.requestPermission();
-      }
+      const socket = io('http://localhost:3001');
+
+      socket.on('connect', () => {
+        console.log('Socket connected successfully!');
+      });
 
       socket.on('new-message', (message) => {
-        alert(`New message received: ${message}`);
-        notificationBadge.classList.remove('hidden');
-        messageCount++;
-        newMessagesCount.textContent = messageCount;
-        messageCountBadge.textContent = messageCount;
-        messageCountBadge.classList.remove('hidden');
-
-        showNotificationPopup(message);
-        showSystemNotification(message);
+        console.log('New message received:', message);
+        if (!isDropdownOpen) {
+          notificationBadge.classList.remove('hidden');
+          bellIcon.classList.add('ringing');
+          messageCount++;
+          newMessagesCount.textContent = `(${messageCount})`;
+          bellMessage.textContent = message;
+        } else {
+          messageCount++;
+          newMessagesCount.textContent = `(${messageCount})`;
+        }
       });
 
       const notificationButton = document.getElementById('notification-button');
+      const notificationDropdown = document.getElementById('notification-dropdown');
 
-      notificationButton.addEventListener('click', () => {
-        if (notificationDropdown.classList.contains('hidden')) {
-          notificationDropdown.classList.remove('hidden');
-          notificationDropdown.classList.add('slide-down');
-          notificationDropdown.classList.remove('slide-up');
-        } else {
-          notificationDropdown.classList.add('slide-up');
-          notificationDropdown.classList.remove('slide-down');
-          setTimeout(() => {
-            notificationDropdown.classList.add('hidden');
-          }, 300);
-        }
-
+      notificationButton.addEventListener('click', (e) => {
+        e.stopPropagation();
+        notificationDropdown.classList.toggle('hidden');
         if (!notificationDropdown.classList.contains('hidden')) {
+          bellIcon.classList.remove('ringing');
           messageCount = 0;
-          newMessagesCount.textContent = messageCount;
+          newMessagesCount.textContent = '';
           notificationBadge.classList.add('hidden');
-          messageCountBadge.classList.add('hidden');
+          isDropdownOpen = true;
+        } else {
+          isDropdownOpen = false;
         }
       });
 
-      window.addEventListener('click', (e) => {
+      document.addEventListener('click', (e) => {
         if (!notificationButton.contains(e.target) && !notificationDropdown.contains(e.target)) {
-          notificationDropdown.classList.add('slide-up');
-          notificationDropdown.classList.remove('slide-down');
-          setTimeout(() => {
-            notificationDropdown.classList.add('hidden');
-          }, 300);
+          notificationDropdown.classList.add('hidden');
+          isDropdownOpen = false;
         }
       });
-
-      function showNotificationPopup(message) {
-        notificationPopup.textContent = `New message received: ${message}`;
-        notificationPopup.style.display = 'block';
-        notificationPopup.classList.add('slide-down');
-        setTimeout(() => {
-          notificationPopup.classList.add('slide-up');
-          notificationPopup.classList.remove('slide-down');
-          setTimeout(() => {
-            notificationPopup.style.display = 'none';
-            notificationPopup.classList.remove('slide-up');
-          }, 300);
-        }, 3000);
-      }
-
-      function showSystemNotification(message) {
-        if (Notification.permission === 'granted') {
-          new Notification('New message received', {
-            body: message,
-            icon: 'path/to/your/icon.png' // optional icon
-          });
-        }
-      }
     });
   </script>
-   <%- include('main') %>
+  
 </body>
 </html>
