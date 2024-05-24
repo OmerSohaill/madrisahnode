@@ -36,17 +36,29 @@ io.on('connection', (socket) => {
     console.log('Received message:', message);
     io.emit('new-message', message); // Emit a 'new-message' event to all connected clients
   });
+
+  socket.on('msg-online1',function(msg){
+    console.log(msg)
+    io.emit('chat1-message',msg)
+  })
+  socket.on('msg-online2',function(msg){
+    console.log("Im message from online 2 " , msg)
+    io.emit('chat2-message',msg)
+  })
+
+  socket.on('msg-online3',function(msg){
+    io.emit('chat3-message',msg)
+  })
 });
 
-// MongoDB connection
-const mongoURI = 'mongodb+srv://umer:umer@cluster0.avg1bjf.mongodb.net/railway?retryWrites=true&w=majority';
-mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-db.once('open', () => {
-  console.log('Connected to MongoDB');
-});
 
+ const mongoURI = 'mongodb+srv://umer:umer@cluster0.avg1bjf.mongodb.net/railway?retryWrites=true&w=majority';
+ mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
+ const db = mongoose.connection;
+ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+ db.once('open', () => {
+   console.log('Connected to MongoDB');
+ });
 // Middleware for authentication
 app.use('/login', (req, res, next) => {
   const token = req.cookies.token;
@@ -64,7 +76,6 @@ app.use('/login', (req, res, next) => {
 app.get('/chat', (req, res) => {
   res.sendFile(path.resolve(__dirname, './public/index.html'));
 });
-
 // Routes
 const registration = require('./routes/registration');
 const login = require('./routes/login');

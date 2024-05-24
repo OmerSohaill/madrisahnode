@@ -3,10 +3,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Welcome to Online Classes </title>
 </head>
 <body>
-    <h1>hy im 3</h1>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome To Our Online Class (03)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #04C488;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .chat-container {
+            max-width: 600px;
+            margin: 20px auto;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .chat-header {
+            background-color: #4267B2;
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+        }
+        .chat-messages {
+            padding: 15px;
+            overflow-y: scroll;
+            max-height: 300px;
+        }
+        .message {
+            margin-bottom: 10px;
+        }
+        .message.self {
+            text-align: right;
+        }
+        .message .message-content {
+            background-color: #eceff1;
+            padding: 10px;
+            border-radius: 5px;
+            display: inline-block;
+            max-width: 70%;
+        }
+        .message.self .message-content {
+            background-color: #DCF8C6;
+        }
+        .chat-input {
+            padding: 15px;
+            background-color: #fff;
+            border-top: 1px solid #ddd;
+        }
+        .input-field {
+            width: calc(100% - 30px);
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+        .btn-send {
+            padding: 10px 20px;
+            background-color: #4267B2;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+        Welcome To Our Online Class(03)
+        </div>
+        <div class="chat-messages" id="chat-messages">
+            <!-- Messages will be inserted here dynamically -->
+        </div>
+        <div class="chat-input">
+            <input type="text" id="message-input" class="input-field" placeholder="Type your message...">
+            <button id="sendMessage" class="btn-send">Send</button>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.min.js"></script>
+
+    <script>
+
+        const socket=io('http://localhost:3001')
+        socket.on('connect',function(){
+            console.log("Socket is connected")
+        })
+        const sendMessage=document.getElementById("sendMessage")
+
+        sendMessage.addEventListener('click',function(){
+        
+            const messageInput = document.getElementById('message-input').value;
+            socket.emit('msg-online3',messageInput)
+            messageInput.innerText=''      
+
+        })        
+        socket.on('chat3-message',function(msg){
+
+            const chatMessages = document.getElementById('chat-messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message';
+            const messageContent = document.createElement('div');
+            messageContent.className = 'message-content';
+            messageContent.innerText = msg
+            messageDiv.appendChild(messageContent);
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll to bottom
+        
+
+        })
+
+        
+    </script>
+</body>
+</html>
+
     
 </body>
 </html>

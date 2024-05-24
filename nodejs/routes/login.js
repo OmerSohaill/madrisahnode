@@ -5,6 +5,7 @@ const {Registration}=require('../models/todo')
 routes.get('/',async function (req, res) {
     try {
         const user = req.user;
+       
         if (user.role == 'admin') {
             return res.render('admin')
         }

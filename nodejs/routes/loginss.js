@@ -10,8 +10,9 @@ routes.post('/', async function (req, res) {
         // Find user by fullname and password
         const user = await Registration.findOne({ fullname, password });
         if (!user) {
-            return res.status(404).send("Check your email and password and try again",res.message);
+            return res.status(404).send("Check your email and password and try again");
         }
+        
       
         if (user.role == 'admin') {
             const token = setuser(user);
@@ -52,7 +53,6 @@ routes.post('/', async function (req, res) {
                 default:
                     return res.status(400).send("Invalid course code");
             }
-
 
         }
         else{
